@@ -1,8 +1,3 @@
-using System;
-using System.Reflection.Emit;
-using System.Security.Policy;
-using System.Web.UI.WebControls.WebParts;
-
 namespace dotless.Test.Specs
 {
     using System.Collections.Generic;
@@ -876,8 +871,6 @@ body {
 
         [Test]
         public void LessImportFromEmbeddedResourceWithDynamicAssembliesInAppDomain() {
-            Assembly assembly =  AppDomain.CurrentDomain.DefineDynamicAssembly(new AssemblyName("dotless.dynamic.dll"),
-                AssemblyBuilderAccess.RunAndSave);
 
             Assembly.Load(new AssemblyName("dotless.Test.EmbeddedResource"));
 
