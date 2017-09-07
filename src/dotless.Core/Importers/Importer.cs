@@ -398,10 +398,6 @@ namespace dotless.Core.Importers
                 fileDependency = match.Groups["Assembly"].Value;
 
                 LoadFromCurrentAppDomain(loader, fileDependency);
-
-                if (String.IsNullOrEmpty(loader._resourceContent))
-                    LoadFromNewAppDomain(loader, fileReader, fileDependency);
-                
             }
             catch (Exception)
             {
@@ -442,33 +438,6 @@ namespace dotless.Core.Importers
             } catch (NotSupportedException) {
                 // Location is not supported for dynamic assemblies, so it will throw a NotSupportedException
                 return true;
-            }
-        }
-
-        private static void LoadFromNewAppDomain(ResourceLoader loader, IFileReader fileReader, String assemblyName)
-        {
-            if (!fileReader.DoesFileExist(assemblyName))
-            {
-                throw new FileNotFoundException("Unable to locate assembly file [" + assemblyName + "]");
-            }
-
-            loader._fileContents = fileReader.GetBinaryFileContents(assemblyName);
-
-            var domainSetup = new AppDomainSetup();
-            domainSetup.ApplicationBase = Path.GetDirectoryName(Assembly.GetExecutingAssembly().Location);
-            var domain = AppDomain.CreateDomain("LoaderDomain", null, domainSetup);
-            domain.DoCallBack(loader.LoadResource);
-            AppDomain.Unload(domain);
-        }
-
-        // Runs in the separate app domain
-        private void LoadResource()
-        {
-            var assembly = Assembly.Load(_fileContents);
-            using (var stream = assembly.GetManifestResourceStream(_resourceName))
-            using (var reader = new StreamReader(stream))
-            {
-                _resourceContent = reader.ReadToEnd();
             }
         }
     }

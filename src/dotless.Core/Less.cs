@@ -16,7 +16,8 @@
             {
                 throw new Exception("Please use dotless.Core.LessWeb.Parse for web applications. This makes sure all web features are available.");
             }
-            return new EngineFactory(config).GetEngine().TransformToCss(less, null);
+            ILessEngine engine = new LessEngine();
+            return engine.TransformToCss(less, null);
         }
     }
 }

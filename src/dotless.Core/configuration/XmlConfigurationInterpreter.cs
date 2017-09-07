@@ -66,11 +66,6 @@ namespace dotless.Core.configuration
             dotlessConfiguration.SessionQueryParamName = GetStringValue(section, "sessionQueryParamName")
                                                          ?? DotlessConfiguration.DEFAULT_SESSION_QUERY_PARAM_NAME;
 
-            if (dotlessConfiguration.SessionMode == DotlessSessionStateMode.QueryParam && string.IsNullOrEmpty(dotlessConfiguration.SessionQueryParamName))
-            {
-                throw new ConfigurationErrorsException("The 'sessionQueryParamName' should be not empty when sessionMode is set to 'queryParam'", section);
-            }
-
             return dotlessConfiguration;
         }
 

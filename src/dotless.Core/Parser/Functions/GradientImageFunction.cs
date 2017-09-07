@@ -5,8 +5,7 @@ namespace dotless.Core.Parser.Functions
     using System;
     using System.Collections.Generic;
     using System.Drawing;
-    using System.Drawing.Drawing2D;
-    using System.Drawing.Imaging;
+    using ImageSharp;
     using System.IO;
     using System.Linq;
     using Exceptions;
@@ -111,7 +110,7 @@ namespace dotless.Core.Parser.Functions
 
             using (var ms = new MemoryStream())
             {
-                using (var bmp = new Bitmap(1, size, PixelFormat.Format32bppArgb))
+                /*using (var bmp = new Bitmap(1, size, PixelFormat.Format32bppArgb))
                 {
                     using (Graphics g = Graphics.FromImage(bmp))
                     {
@@ -129,7 +128,7 @@ namespace dotless.Core.Parser.Functions
                         bmp.SetPixel(0, last.Position, last.Color);
                         bmp.Save(ms, ImageFormat.Png);
                     }
-                }
+                }*/
                 return ms.ToArray();
             }
         }
